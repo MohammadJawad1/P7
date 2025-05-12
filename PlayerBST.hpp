@@ -4,6 +4,7 @@
 
 #include <string>
 #include <vector>
+#include <cmath>
 
 enum TraversalType {
     IN_ORDER,
