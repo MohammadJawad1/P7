@@ -121,7 +121,7 @@ public:
     * @returns The count of players with wins >= min_wins
     * as an integer
     */
-    int countAboveWins(const int& wins);
+    int countAboveWins(const int& min_wins);
 
     /**
      * @brief Creates a vector of all ChessPlayers in the BST
@@ -132,7 +132,7 @@ public:
      * @returns A vector containing all ChessPlayers in the PlayerBST 
      * read in the specified traversal order.
      */
-    std::vector<ChessPlayer> toVector(const TraversalType& order);
+    std::vector<ChessPlayer> toVector(const TraversalType& traversal);
 
 
 
