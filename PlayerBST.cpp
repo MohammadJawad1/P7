@@ -83,12 +83,12 @@ bool PlayerBST::remove(const std::string& name)
 
 PlayerBST::PlayerBST() : root_(nullptr), size_(0){}
 
-Node<ChessPlayer>* PlayerBST::getRoot()
+Node<ChessPlayer>* PlayerBST::getRoot() const
 {
     return root_;
 }
 
-int PlayerBST::size()
+int PlayerBST::size() const
 {
     return size_;
 }

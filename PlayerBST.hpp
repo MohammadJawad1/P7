@@ -73,14 +73,14 @@ public:
      * @returns The a pointer to the root of the PlayerBST, 
      * or nullptr if the tree is empty.
      */
-    Node<ChessPlayer>* getRoot();
+    Node<ChessPlayer>* getRoot() const;
 
     /**
      * @brief Getter for the `size_` member
      * @returns The number of Players (ie. nodes) 
      * in the PlayerBST as an integer
      */
-    int size();
+    int size() const;
 
     /**
      * @brief Searches for a Player in the PlayerBST
@@ -90,7 +90,7 @@ public:
      * the name of the Player to search for.
      * @returns True if the player exists in the BST. False otherwise.
      */
-    bool contains(const std::string& name);
+    bool contains(const std::string& value);
 
     /**
      * @brief Inserts a Player into the PlayerBST
@@ -100,7 +100,7 @@ public:
      * @returns True if the player was sucessfully inserted. False otherwise.
      * @post Increments the BST's size if the value was succesfully inserted
      */
-    bool insert(const ChessPlayer& insert);
+    bool insert(const ChessPlayer& value);
 
     /**
      * @brief Calculates the average number of wins
