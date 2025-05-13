@@ -1,3 +1,7 @@
+//Mohammad Jawad
+//may 13
+//The implementation for the helper functions and the main functions
+
 #include "PlayerBST.hpp"
 
 /**
@@ -120,48 +124,41 @@ int PlayerBST::size() const
 
 bool PlayerBST::contains(const std::string& name)
 {
-    // Start with the root and traverse down
     Node<ChessPlayer>* current = root_;
     while (current != nullptr) {
-        // If the player is found, return true
         if (name == current->getValue().name_) {
             return true;
         }
-
-        // If the name is smaller, go left
         if (name < current->getValue().name_) {
             current = current->getLeftChild();
         } 
-        // If the name is larger, go right
         else {
             current = current->getRightChild();
         }
     }
-
-    // Player not found, return false
     return false;
 }
 
-
-
+/**
+* @brief Inserts a Player into the PlayerBST
+* if a player with their name does NOT already exist.
+*
+* @param value A const. reference to the ChessPlayer to insert
+* @returns True if the player was sucessfully inserted. False otherwise.
+* @post Increments the BST's size if the value was succesfully inserted
+*/
 bool PlayerBST::insert(const ChessPlayer& value)
 {
-    // If the tree is empty, create the root
     if (root_ == nullptr) {
         root_ = new Node<ChessPlayer>(value);
         size_++;
         return true;
     }
-
-    // Start with the root and traverse down
     Node<ChessPlayer>* current = root_;
     while (current != nullptr) {
-        // If the player already exists, return false
         if (value.name_ == current->getValue().name_) {
             return false;
         }
-
-        // If the value is smaller, go left
         if (value.name_ < current->getValue().name_) {
             if (current->getLeftChild() == nullptr) {
                 current->setLeftChild(new Node<ChessPlayer>(value));
@@ -171,7 +168,6 @@ bool PlayerBST::insert(const ChessPlayer& value)
                 current = current->getLeftChild();
             }
         } 
-        // If the value is larger, go right
         else {
             if (current->getRightChild() == nullptr) {
                 current->setRightChild(new Node<ChessPlayer>(value));
@@ -183,7 +179,7 @@ bool PlayerBST::insert(const ChessPlayer& value)
         }
     }
 
-    return false;  // This line should never be reached
+    return false;
 }
 
 /**
@@ -206,8 +202,12 @@ double PlayerBST::averageWins()
     // Round to 2 decimal places
     return std::round(average * 100.0) / 100.0;
 }
-
-
+/**
+ * @brief Recursively calculates the number of wins in the subtree
+ * 
+ * @param node Pointer to the current node in the tree.
+ * @return Total wins gathered from the current subtree.
+ */
 int PlayerBST::averageWinsHelper(Node<ChessPlayer>* node)
 {
     if (!node) {
@@ -219,12 +219,25 @@ int PlayerBST::averageWinsHelper(Node<ChessPlayer>* node)
 
     return leftSum + rightSum + node->getValue().wins_;
 }
-
+/**
+* @brief Calculates the average number of wins
+* across all Players in the PlayerBST, rounded
+* to at second decimal place (eg. 1.00, 2.50, 3.14 etc.)
+*
+* @returns The average number of wins or 0.0
+* if the BST is empty, as a double
+*/
 int PlayerBST::countAboveWins(const int& min_wins)
 {
     return countAboveWinsHelper(root_, min_wins);
 }
-
+/**
+ * @brief Recursively counts the number of players with wins 
+ * 
+ * @param node Pointer to the current node in the BST.
+ * @param min_wins A const reference to an integer  denoting the minimum number of wins required to be counted.
+ * @return Number of players in the subtree with wins >= min_wins.
+ */
 int PlayerBST::countAboveWinsHelper(Node<ChessPlayer>* node, const int& min_wins)
 {
     if (!node) {
@@ -238,7 +251,15 @@ int PlayerBST::countAboveWinsHelper(Node<ChessPlayer>* node, const int& min_wins
 
     return count + countAboveWinsHelper(node->getLeftChild(), min_wins) + countAboveWinsHelper(node->getRightChild(), min_wins);
 }
-
+/**
+* @brief Creates a vector of all ChessPlayers in the BST
+* using the specified traversal order.
+*
+* @param traversal A const reference to the traversal type
+* (ie. IN_ORDER, PRE_ORDER, POST_ORDER)
+* @returns A vector containing all ChessPlayers in the PlayerBST 
+* read in the specified traversal order.
+*/
 std::vector<ChessPlayer> PlayerBST::toVector(const TraversalType& traversal)
 {
     std::vector<ChessPlayer> result;
@@ -257,7 +278,12 @@ std::vector<ChessPlayer> PlayerBST::toVector(const TraversalType& traversal)
 
     return result;
 }
-
+/**
+ * @brief Performs in-order traversal of the BST and stores players in a vector.
+ * @param node a pointer to the current node being visited.
+ * @param vec a reference to a vector to store ChessPlayer objects in in-order sequence.
+ * @details In-order traversal visits left subtree, current node, then right subtree.
+ */
 void PlayerBST::toVectorInOrder(Node<ChessPlayer>* node, std::vector<ChessPlayer>& vec)
 {
     if (!node) return;
@@ -266,7 +292,13 @@ void PlayerBST::toVectorInOrder(Node<ChessPlayer>* node, std::vector<ChessPlayer
     vec.push_back(node->getValue());
     toVectorInOrder(node->getRightChild(), vec);
 }
-
+/**
+ * @brief Performs pre-order traversal of the BST and stores players in a vector.
+ * 
+ * @param node a pointer to current node being visited.
+ * @param vec a reference to a vector to store ChessPlayer objects in pre-order sequence.
+ * @details Pre-order traversal visits current node, then left and right subtrees.
+ */
 void PlayerBST::toVectorPreOrder(Node<ChessPlayer>* node, std::vector<ChessPlayer>& vec)
 {
     if (!node) return;
@@ -275,7 +307,13 @@ void PlayerBST::toVectorPreOrder(Node<ChessPlayer>* node, std::vector<ChessPlaye
     toVectorPreOrder(node->getLeftChild(), vec);
     toVectorPreOrder(node->getRightChild(), vec);
 }
-
+/**
+ * @brief Performs post-order traversal of the BST and stores players in a vector.
+ * 
+ * @param node a pointer to node being visited.
+ * @param vec a reference to a vector to store ChessPlayer objects in post-order sequence.
+ * @details Post-order traversal visits left and right subtrees, then the current node.
+ */
 void PlayerBST::toVectorPostOrder(Node<ChessPlayer>* node, std::vector<ChessPlayer>& vec)
 {
     if (!node) return;

@@ -1,3 +1,7 @@
+//Mohammad Jawad
+//may 13
+//The header for the helper functions and the main functions
+
 #pragma once
 #include "ChessPlayer.hpp"
 #include "Node.hpp"
@@ -111,7 +115,12 @@ public:
      * if the BST is empty, as a double
      */
     double averageWins();
-
+    /**
+     * @brief Recursively calculates the number of wins in the subtree
+     * 
+     * @param node Pointer to the current node in the tree.
+     * @return Total wins gathered from the current subtree.
+     */
     int averageWinsHelper(Node<ChessPlayer>* node);
 
     /**
@@ -125,6 +134,13 @@ public:
     */
     int countAboveWins(const int& min_wins);
 
+    /**
+     * @brief Recursively counts the number of players with wins 
+     * 
+     * @param node Pointer to the current node in the BST.
+     * @param min_wins A const reference to an integer  denoting the minimum number of wins required to be counted.
+     * @return Number of players in the subtree with wins >= min_wins.
+     */
     int countAboveWinsHelper(Node<ChessPlayer>* node, const int& min_wins);
 
     /**
@@ -138,8 +154,30 @@ public:
      */
     std::vector<ChessPlayer> toVector(const TraversalType& traversal);
 
+    /**
+     * @brief Performs in-order traversal of the BST and stores players in a vector.
+     * @param node a pointer to the current node being visited.
+     * @param vec a reference to a vector to store ChessPlayer objects in in-order sequence.
+     * @details In-order traversal visits left subtree, current node, then right subtree.
+     */
     void toVectorInOrder(Node<ChessPlayer>* node, std::vector<ChessPlayer>& vec);
+
+    /**
+     * @brief Performs pre-order traversal of the BST and stores players in a vector.
+     * 
+     * @param node a pointer to current node being visited.
+     * @param vec a reference to a vector to store ChessPlayer objects in pre-order sequence.
+     * @details Pre-order traversal visits current node, then left and right subtrees.
+     */
     void toVectorPreOrder(Node<ChessPlayer>* node, std::vector<ChessPlayer>& vec);
+
+    /**
+     * @brief Performs post-order traversal of the BST and stores players in a vector.
+     * 
+     * @param node a pointer to node being visited.
+     * @param vec a reference to a vector to store ChessPlayer objects in post-order sequence.
+     * @details Post-order traversal visits left and right subtrees, then the current node.
+     */
     void toVectorPostOrder(Node<ChessPlayer>* node, std::vector<ChessPlayer>& vec);
 
 
