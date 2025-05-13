@@ -112,6 +112,8 @@ public:
      */
     double averageWins();
 
+    int averageWinsHelper(Node<ChessPlayer>* node);
+
     /**
     * @brief Counts the number of Players in the BST with
     * greater than or equal to the specified minimum number of wins.
@@ -123,6 +125,8 @@ public:
     */
     int countAboveWins(const int& min_wins);
 
+    int countAboveWinsHelper(Node<ChessPlayer>* node, const int& min_wins);
+
     /**
      * @brief Creates a vector of all ChessPlayers in the BST
      * using the specified traversal order.
@@ -133,6 +137,10 @@ public:
      * read in the specified traversal order.
      */
     std::vector<ChessPlayer> toVector(const TraversalType& traversal);
+
+    void toVectorInOrder(Node<ChessPlayer>* node, std::vector<ChessPlayer>& vec);
+    void toVectorPreOrder(Node<ChessPlayer>* node, std::vector<ChessPlayer>& vec);
+    void toVectorPostOrder(Node<ChessPlayer>* node, std::vector<ChessPlayer>& vec);
 
 
 
